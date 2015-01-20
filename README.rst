@@ -318,7 +318,7 @@ Command (Cmd)
 
 A class that runs an external program::
 
-   Cmd(cmd, modes, encoding)
+   Cmd(cmd[, modes][, encoding])
 
 cmd may be a list or a string.
 mode is a string that specifies various options
@@ -366,8 +366,8 @@ Run and Sh
 ~~~~~~~~~~
 
 Run and Sh are subclasses of Cmd. They are the same except that they both run 
-the program right away (you would not explicitly run the program with the run().  
-Run does not use a shell by default where as Sh does.
+the program right away (you would not explicitly run the program with the 
+run()).  Run does not use a shell by default where as Sh does.
 
 run, sh, bg, shbg
 ~~~~~~~~~~~~~~~~~
