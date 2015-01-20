@@ -36,7 +36,7 @@ more than one src item, then dest must be a directory and the copies will be
 placed in that directory.  The src arguments may be strings or lists of strings.  
 The dest must be a string.
 
-Example::
+Example:
 
 .. code-block:: python
 
@@ -265,7 +265,7 @@ Create a list of files from path fragments::
 
 Like with join(), the components are combined to form a path, but in this case 
 each component may be a list. The results is the various components are combined 
-in a Cartesian product to form a list. For example::
+in a Cartesian product to form a list. For example:
 
 .. code-block:: python
 
