@@ -44,9 +44,9 @@ Example:
    >>> testdir = 'testdir'
    >>> rm(testdir)
    >>> mkdir(testdir)
-   >>> files = inflate(testdir, ['f1', 'f2'])
+   >>> files = all_paths(testdir, ['f1', 'f2'])
    >>> touch(files)
-   >>> dirs = inflate(testdir, ['d1', 'd2'])
+   >>> dirs = all_paths(testdir, ['d1', 'd2'])
    >>> mkdir(dirs)
    >>> print(sorted(ls(path=testdir)))
    ['testdir/d1', 'testdir/d2', 'testdir/f1', 'testdir/f2']
@@ -97,9 +97,9 @@ The dest must be a string.
    >>> testdir = 'testdir'
    >>> rm(testdir)
    >>> mkdir(testdir)
-   >>> files = inflate(testdir, ['f1', 'f2'])
+   >>> files = all_paths(testdir, ['f1', 'f2'])
    >>> touch(files)
-   >>> dirs = inflate(testdir, ['d1', 'd2'])
+   >>> dirs = all_paths(testdir, ['d1', 'd2'])
    >>> mkdir(dirs)
    >>> print(sorted(ls(path=testdir)))
    ['testdir/d1', 'testdir/d2', 'testdir/f1', 'testdir/f2']
@@ -261,7 +261,7 @@ Cartesian Product
 
 Create a list of files from path fragments::
 
-   inflate(comp, ...)
+   all_paths(comp, ...)
 
 Like with join(), the components are combined to form a path, but in this case 
 each component may be a list. The results is the various components are combined 
@@ -269,7 +269,7 @@ in a Cartesian product to form a list. For example:
 
 .. code-block:: python
 
-   >>> paths = inflate(['A', 'B'], ['a', 'b'], ['1', '2'])
+   >>> paths = all_paths(['A', 'B'], ['a', 'b'], ['1', '2'])
    >>> for p in paths:
    ...     print(p)
    A/a/1
@@ -293,9 +293,10 @@ Expand glob patterns::
 Expand glob pattern into all files or directories, into directories only, or 
 into files only.
 
-The inflate iterator is different in an important way from the expand iterators.  
-The inflate iterator will generate paths that may not currently exist on your 
-filesystem, whereas the expand iterators only yield existing paths.
+The all_paths iterator is different in an important way from the expand 
+iterators.  The all_paths iterator will generate paths that may not currently 
+exist on your filesystem, whereas the expand iterators only yield existing 
+paths.
 
 Filtering
 ~~~~~~~~~

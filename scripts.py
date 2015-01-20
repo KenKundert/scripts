@@ -537,9 +537,9 @@ def fopen(path, mode='rU'):
     except (IOError, OSError) as err:
         raise ScriptError(err.strerror, fn=err.filename)
 
-# Path list functions (inflate, expand, filter, etc.) {{{1
-# inflate {{{2
-def inflate(*fragments):
+# Path list functions (all_paths, expand, filter, etc.) {{{1
+# all_paths {{{2
+def all_paths(*fragments):
     """
     Combine path fragments to to a path list. Each fragment must be a string
     or an iterable that generates strings.
