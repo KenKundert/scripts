@@ -320,20 +320,30 @@ A class that runs an external program::
 
    Cmd(cmd[, modes][, encoding])
 
-cmd may be a list or a string.
-mode is a string that specifies various options
-|  S, s: Use, or do not use, shell
-|  O, o: Capture, or do not capture, stdout
-|  E, e: Capture, or do not capture, stderr
-|  W, s: Wait, or do not wait, for command to terminate before proceding
-only one of the following may be given, and it must be given last
-|  *: accept any output status code
-|  N: accept any output status code equal to N or less
-|  M,N,...: accept status codes M, N, ...
+*cmd* may be a list or a string.
+*mode* is a string that specifies various options. The options are specified 
+using a single letter, with upper case enabling the option and lower case 
+disabling it:
+
+   |  S, s: Use, or do not use, shell
+   |  O, o: Capture, or do not capture, stdout
+   |  E, e: Capture, or do not capture, stderr
+   |  W, s: Wait, or do not wait, for command to terminate before proceeding
+
+If a letter corresponding to a particular option is not specified, the default 
+is used for that option.  In addition, one of the following may be given, and it 
+must be given last
+
+   |  *: accept any output status code
+   |  N: accept any output status code equal to or less than N
+   |  M,N,...: accept status codes M, N, ...
+
+If you do not specify the status code behavior, only 0 is accepted as normal 
+termination, all other codes will be treated as errors.
 
 For example, to run diff you might use::
 
-   diff = Cmd(['diff', 'test', 'ref'], 'OEW1')
+   diff = Cmd('diff test ref', 'sOEW1')
    diff.run()
    differences = diff.stdout
 
@@ -354,7 +364,7 @@ If you indicate that run() should return immediately without out waiting for the
 program to exit, then you can use the wait() and kill() methods to manage the 
 execution. For example::
 
-   diff = Cmd(['gvim'] + files, 'w')
+   diff = Cmd(['gvim', '-d', lfile, rfile], 'w')
    diff.run()                                                                    
    try:
        diff.wait()
@@ -411,22 +421,26 @@ command::
        sys.exit(str(err))
 
 It is also possible to specify that a script error will always print and error 
-message and then terminate the program (see script preferences).
+message and then simply terminate the program without returning (see script 
+preferences).
 
 Script Preferences
 ------------------
 
-The program has the following default behaviors::
+The program has the following default behaviors:
 
-   'exit_upon_error': False,
-   'expanduser': True,
-   'expandvars': False,
-   'encoding': 'utf-8',
-   'show_cmd_in_errors': True,
+   | exit_upon_error (default=False)
+   | expanduser (default=True)
+   | expandvars (default=False)
+   | encoding (default='utf-8')
+   | show_cmd_in_errors (default=True)
 
 If you wish to change these behaviors, use the following example as guidance::
 
    script_prefs.set('exit_upon_error', True)
+
+The value of *show_cmd_in_errors* may be False, True (first word only), or 
+'full' (the entire command).
 
 To Do
 -----
@@ -444,5 +458,5 @@ resolve. They are:
    them consistent if a flags argument were added to allow the default behavior 
    to be overridden easily. The flags argument would be similar to that provided 
    by Cmd.
-4. Should we switch the order of the arguments to the ls function?
-
+4. Should we switch the order of the arguments to the ls and filter functions?
+5. The documentation could use some work (more examples).
