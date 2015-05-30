@@ -408,6 +408,22 @@ found with matching flags::
 By default the path is specified by the PATH environment variable and the flags 
 check whether you have execute permission.
 
+fopen
+~~~~~
+
+An alternative version of *open* named *fopen* is provided::
+
+    with fopen(<filepath>, [mode='rU'], [encoding=default_encoding]) as f:
+        ...
+
+It differs from *open* in that:
+1. it generates a ScriptError rather than an IOError if there is a problem 
+   opening the file
+2. the default mode is 'rU' rather than 'r', and
+3. it will use the default encoding (see script preferences below) if none is 
+   specified.
+
+
 Errors
 ------
 
@@ -441,6 +457,11 @@ If you wish to change these behaviors, use the following example as guidance::
 
 The value of *show_cmd_in_errors* may be False, True (first word only), or 
 'full' (the entire command).
+
+Alternatively, script_prefs is callable and you can set the preferences using 
+keyword arguments::
+
+   script_prefs(exit_upon_error=True, expanduser=True, expandvars=False)
 
 To Do
 -----

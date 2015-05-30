@@ -83,6 +83,9 @@ class ScriptPreferences(object):
             raise ScriptError('unknown preference')
         self.preferences[name] = value
 
+    def __call__(self, **kwargs):
+        self.preferences.update(kwargs)
+
 script_prefs = ScriptPreferences()
 
 # File system utility functions (cp, mv, rm, ln, touch, mkdir, ls, etc.) {{{1
@@ -232,6 +235,12 @@ def mkdir(*paths):
         except (IOError, OSError) as err:
             if err.errno != errno.EEXIST:
                 sys.exit("%s: %s." % (err.filename, err.strerror))
+
+# cd {{{2
+cd = os.chdir
+
+# cwd {{{2
+cwd = os.getcwd
 
 # chmod {{{2
 def chmod(mode, *paths):
@@ -529,7 +538,7 @@ def extension(path):
     """
     return os.path.splitext(path)[1]
 
-# cleavext {{{2
+# cleaveext {{{2
 def cleaveext(path):
     """
     Returns root and extension as a tuple.
@@ -611,11 +620,11 @@ class Cmd(object):
     Specify a command
 
     cmd may be a string or a list.
-    mode is a string that specifies various options
+    modes is a string that specifies various options
         S, s: Use, or do not use, shell
         O, o: Capture, or do not capture, stdout
         E, e: Capture, or do not capture, stderr
-        W, s: Wait, or do not wait, for command to terminate before proceding
+        W, s: Wait, or do not wait, for command to terminate before proceeding
     only one of the following may be given, and it must be given last
         *: accept any output status code
         N: accept any output status code equal to N or less
@@ -652,7 +661,11 @@ class Cmd(object):
     # _sanity_check {{{3
     def _sanity_check(self):
         if self.save_stdout or self.save_stderr:
-            assert self.wait_for_termination
+            #assert self.wait_for_termination
+            pass
+            # turns out this is a valid use model. Basically stdout or stderr 
+            # is swallowed up and does not bother the user. It becomes 
+            # available if one waits for the process to terminate.
 
     # run {{{3
     def run(self, stdin=None):
@@ -666,12 +679,15 @@ class Cmd(object):
         """
         import subprocess
 
-        # I have never been able to get Popen to work properly if cmd is not
-        # a string when using the shell
-        if self.use_shell and not isinstance(self.cmd, basestring):
-            cmd = ' '.join(self.cmd)
+        # Popen seems to want cmd to be a string is the shell is being use, or 
+        # a list otherwise
+        if isinstance(self.cmd, basestring):
+            cmd = self.cmd if self.use_shell else self.cmd.split()
         else:
-            cmd = self.cmd
+            if self.use_shell:
+                cmd = ' '.join(self.cmd)
+            else:
+                cmd = self.cmd
 
         # indicate streams to intercept
         streams = {}
@@ -795,6 +811,8 @@ def run(cmd, stdin=None, accept=0, shell=False):
     # a string when using the shell
     if shell and not isinstance(cmd, basestring):
         cmd = ' '.join(cmd)
+    elif isinstance(cmd, basestring) and not shell:
+        cmd = cmd.split()
 
     streams = {} if stdin is None else {'stdin': subprocess.PIPE}
     try:
