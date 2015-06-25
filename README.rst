@@ -1,10 +1,10 @@
 .. footer::
 
-   ###Page### of ###Total### 
+   ###Page### of ###Total###
 
 
-scripts - Scripting Utilities
-=============================
+scripts -- Scripting Utilities
+==============================
 
 A light-weight package with few dependencies that allows users to do 
 shell-script like things relatively easily in Python.
@@ -296,7 +296,23 @@ into files only.
 The all_paths iterator is different in an important way from the expand 
 iterators.  The all_paths iterator will generate paths that may not currently 
 exist on your filesystem, whereas the expand iterators only yield existing 
-paths.
+paths. In terms of shell expansions, all_paths is like {}, whereas expand is 
+like *.
+
+Walk File Hierarchy
+~~~~~~~~~~~~~~~~~~~
+
+::
+
+    fwalk(path, accept=None, reject=None, exclude=None)
+
+Returns a generator that iterates through all the files contained in a
+directory hierarchy.  Accept and reject criteria are glob strings, or lists
+of glob strings. For a file to be returned its name must not match any of
+the reject criteria if any are given, and it must match one of the accept
+criteria, if any are given.  If no criteria are given, all files are
+returned. Exclude is a file or directory or a list of files or directories
+to exclude. Each is specified relative from the current working directory.
 
 Filtering
 ~~~~~~~~~
@@ -334,7 +350,7 @@ If a letter corresponding to a particular option is not specified, the default
 is used for that option.  In addition, one of the following may be given, and it 
 must be given last
 
-   |  *: accept any output status code
+   |  ``*``: accept any output status code
    |  N: accept any output status code equal to or less than N
    |  M,N,...: accept status codes M, N, ...
 
@@ -417,6 +433,7 @@ An alternative version of *open* named *fopen* is provided::
         ...
 
 It differs from *open* in that:
+
 1. it generates a ScriptError rather than an IOError if there is a problem 
    opening the file
 2. the default mode is 'rU' rather than 'r', and
