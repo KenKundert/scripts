@@ -297,7 +297,7 @@ The all_paths iterator is different in an important way from the expand
 iterators.  The all_paths iterator will generate paths that may not currently 
 exist on your filesystem, whereas the expand iterators only yield existing 
 paths. In terms of shell expansions, all_paths is like {}, whereas expand is 
-like *.
+like \*.
 
 Walk File Hierarchy
 ~~~~~~~~~~~~~~~~~~~
