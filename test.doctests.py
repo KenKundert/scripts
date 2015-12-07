@@ -4,20 +4,14 @@
 
 # Imports {{{1
 from __future__ import print_function
-from runtests import cmdLineOpts, writeSummary
-from textcolors import Colors
+from runtests import (
+    cmdLineOpts, writeSummary, succeed, fail, error, info, status
+)
 import doctest
 import sys
 
 # Initialization {{{1
 fast, printSummary, printTests, printResults, colorize, parent = cmdLineOpts()
-
-colors = Colors(colorize)
-succeed = colors.colorizer('green')
-fail = colors.colorizer('red')
-error = colors.colorizer('red')
-info = colors.colorizer('magenta')
-status = colors.colorizer('cyan')
 
 
 # Test cases {{{1
