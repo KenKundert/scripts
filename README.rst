@@ -281,6 +281,18 @@ in a Cartesian product to form a list. For example:
    B/b/1
    B/b/2
 
+This function is similar to brace expansion in the shell. For example:
+
+.. code-block:: python
+
+   all_paths(['a'], ['d', 'c', 'b'], ['e'])
+
+is equivalent to the following shell brace expansion::
+
+   a{d,c,b}e
+
+and each produces: ade ace abe.
+
 Globbing
 ~~~~~~~~
 
