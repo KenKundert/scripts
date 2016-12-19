@@ -3,5 +3,5 @@
 
 from runtests import runTests
 
-runTests(['doctests'], pythonCmd='python3')
+runTests(['doctests'], pythonVers='3')
 
