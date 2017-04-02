@@ -5,18 +5,13 @@
 # Imports {{{1
 from __future__ import print_function
 from runtests import (
-    cmdLineOpts, writeSummary, succeed, fail, error, info, status,
-    pythonCmd, coverageCmd,
+    cmdLineOpts, writeSummary, succeed, fail, error, info, status
 )
 import doctest
 import sys
 
 # Initialization {{{1
 fast, printSummary, printTests, printResults, colorize, parent, coverage = cmdLineOpts()
-if coverage is False:
-    python = pythonCmd()
-else:
-    python = coverageCmd(source=coverage)
 
 
 # Test cases {{{1
