@@ -3,7 +3,7 @@
 #
 # Requires Python2.7 or Python 3.3.
 cmd=scripts
-pythons=(python2 python3)
+pythons=(python3)
     # Add the versions of python you would like to install to above
 
 for python in ${pythons[*]}; do
