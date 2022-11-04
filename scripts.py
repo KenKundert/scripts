@@ -564,7 +564,7 @@ def addext(path, ext):
     return path + ext
 
 # fopen {{{2
-def fopen(path, mode='rU', encoding=True):
+def fopen(path, mode='r', encoding=True):
     """
     Open path as file with specified mode. Return file descriptor.
     """

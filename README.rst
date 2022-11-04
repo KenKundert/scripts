@@ -441,15 +441,14 @@ fopen
 
 An alternative version of *open* named *fopen* is provided::
 
-    with fopen(<filepath>, [mode='rU'], [encoding=default_encoding]) as f:
+    with fopen(<filepath>, [mode='r'], [encoding=default_encoding]) as f:
         ...
 
 It differs from *open* in that:
 
 1. it generates a ScriptError rather than an IOError if there is a problem 
    opening the file
-2. the default mode is 'rU' rather than 'r', and
-3. it will use the default encoding (see script preferences below) if none is 
+2. it will use the default encoding (see script preferences below) if none is 
    specified.
 
 

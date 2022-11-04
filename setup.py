@@ -14,5 +14,4 @@ setup(
     author_email = 'ken@designers-guide.com',
     py_modules = ['scripts'],
     zip_safe = True,
-    use_2to3 = True,
 )
