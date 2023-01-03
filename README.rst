@@ -3,8 +3,8 @@
    ###Page### of ###Total###
 
 
-scripts -- Scripting Utilities
-==============================
+scripts — Scripting Utilities
+=============================
 
 A light-weight package with few dependencies that allows users to do 
 shell-script like things relatively easily in Python.
